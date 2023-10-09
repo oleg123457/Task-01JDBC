@@ -1,28 +1,14 @@
 package jm.task.core.jdbc.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    public static void main(String[] args) {
-        Connection connection = Util.getConnection();
+    public static SessionFactory getSessionFactory() {
+        Configuration configuration = new Configuration().addAnnotatedClass(User.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        return sessionFactory;
     }
-    private static final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String username = "postgres";
-    private static final String password = "Lo10122003";
-
-
-    public static Connection getConnection(){
-        try {
-            return DriverManager.getConnection(url,username,password);
-        }catch (SQLException e){
-            throw  new RuntimeException(e);
-        }
-
-    }
-
-
-
 }
